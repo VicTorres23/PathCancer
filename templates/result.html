@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PathCancer</title>
+    <style>
+        .logo-container {
+            margin-top: 20px;
+        }
+        .header-container {
+            display: flex;
+            justify-content: center;
+        }
+        .heatmap-container {
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .heatmap-container img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{{ logo_image }}" alt="PathCancer Logo" width="200">
+    </div>
+    <div class="header-container">
+        <h2>General Statistics</h2>
+    </div>
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Value</th>
+        </tr>
+        {% for key, value in MAFStats.items() %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+    <table/>
+    <div class="heatmap">
+        <img src="{{ variant_classification_image }}" alt="Variant Classification">
+    </div>
+    <div class="header-container">
+    <div class="heatmap">
+        <img src="{{ variant_type_image }}" alt="Variant Type">
+    </div>
+        <h2>Co-Occurrence and Mutual Exclusivity Analysis</h2>
+    </div>
+    <div class="heatmap-container">
+        {% if co_occurrence_image %}
+            <div class="heatmap">
+                <img src="{{ co_occurrence_image }}" alt="Co-Occurrence Heatmap">
+            </div>
+        {% endif %}
+        {% if mutual_exclusivity_image %}
+            <div class="heatmap">
+                <img src="{{ mutual_exclusivity_image }}" alt="Mutual Exclusivity Heatmap">
+            </div>
+        {% endif %}
+    </div>
+    <div class="heatmap-container">
+        {% if mutation_network_image %}
+        <div class="heatmap">
+            <img src="{{ mutation_network_image }}" alt="Network of Mutation Relationships">
+        </div>
+    </div>
+    {% endif %}
+    <div class="header-container">
+        <h2>Pathway Analysis</h2>
+    </div>
+    <div class="heatmap-container">
+    {% if pathway_barplot %}
+        <div class="heatmap">
+            <img src="{{ pathway_barplot }}" alt="Pathway Bar Plot">
+        </div>
+    {% endif %}
+    </div>
+    <a href="{{ url_for('upload_file') }}">Upload another file</a>
+</body>
+</html>
